@@ -9,11 +9,11 @@ class Contenedor {
   async save(informacion) {
     try {
       let contenido = await fs.promises.readFile(`./${this.name}`, "utf-8");
-      let contenidoParseado = JSON.parse(contenido);
-      let ultimoIndice = contenidoParseado.length - 1;
-      let ultimoId = contenidoParseado[ultimoIndice].id;
-      informacion.id = ultimoId + 1;
-      let id = informacion.id;
+      let id
+      let contenidoParseado = JSON.parse(contenido).product;
+
+      informacion.id=contenidoParseado.length+1;
+      
       contenidoParseado.push(informacion);
       await fs.promises.writeFile(
         `./${this.name}`,
@@ -79,3 +79,5 @@ class Contenedor {
     }
   }
 }
+
+module.exports = Contenedor
